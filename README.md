@@ -46,6 +46,7 @@ sorry for my english ^^
 	<li>Delay after clip: delay after clip ¯\_(ツ)_/¯</li>
 	<li>Delay after last clip: delay after last clip</li>
 	<li>Output file name: name of your montage</li>
+	![alt text](https://github.com/vladantrhlik/gaming-montage-creator/blob/master/img/video%20scheme.png)
 </ul>
 
 </p>
