@@ -12,7 +12,7 @@ sorry for my english ^^
 	<li>Video timestamp editor with GUI</li>
 	<li>Audio timestamp editor with GUI</li>
 	<li>Montage generator GUI</li>
-	<li>Added fade in/out (audio & video), delay after clip</li>
+	<li>Added fade in/out (audio & video), delay after last clip</li>
 	<li>Fixed some bugs</li>
 </ul>
 <h3>Video editor</h3>
