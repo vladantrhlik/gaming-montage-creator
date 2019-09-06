@@ -46,7 +46,7 @@ sorry for my english ^^
 	<li>Delay after clip: delay after clip ¯\_(ツ)_/¯</li>
 	<li>Delay after last clip: delay after last clip</li>
 	<li>Output file name: name of your montage</li>
-	scheme:<br>
+	<br>scheme:
 	<img src="img/video scheme.png">
 </ul>
 
