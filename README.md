@@ -15,7 +15,7 @@ sorry for my english ^^
 	<li>Added fade in/out (audio & video), delay after last clip</li>
 	<li>Fixed some bugs</li>
 </ul>
-<h3>Video editor</h3>
+<h3>Video editor (tools/video_editor.py)</h3>
 <p>To create video timestamp:
 	<ol>
 	<li>Add video by clicking on file > open and selecting your video</li>
@@ -24,7 +24,7 @@ sorry for my english ^^
 	<li>Save it to folder of you clips by clicking on file > save</li>
 	</ol>
 </p>
-<h3>Audio editor</h3>
+<h3>Audio editor (tools/beat_creator.py)</h3>
 <p>
 	To create audio timestamps:
 	<ol>
@@ -33,7 +33,7 @@ sorry for my english ^^
 	<li>When you're done click save and file with datas will be created in same folder as audio file</li>
 	</ol>
 </p>
-<h3>Montage generator GUI</h3>
+<h3>Montage generator GUI (GUI_menu.py)</h3>
 <p>
 	To generate montage:
 		<ol>
