@@ -31,8 +31,6 @@ class VideoWindow(QMainWindow):
     def __init__(self, parent=None):
 
 
-        self.setStyleSheet(qdarkgraystyle.load_stylesheet())
-
         super(VideoWindow, self).__init__(parent)
         self.setWindowTitle("Insane gaming montage editr omguwuowo") 
 
