@@ -1,56 +1,107 @@
 from moviepy.video.io.VideoFileClip import VideoFileClip
 from moviepy.editor import *
-
-pocet_klipu = 16
+import moviepy.video.fx.all as vfx
+import moviepy.audio.fx.all as afx
+from os import listdir
+from os.path import isfile, join
 
 paths = []
+shots = []
 
-for i in range(pocet_klipu):
-	paths.append("clips/"+str(i+1)+".mp4")
+#_---------------------------------------------------
 
-
-#song_path = "atlas - eulogy.mp3"
-#beats = [12.283, 13.722, 15.185, 16.718, 18.227]
-
-#song_path = "Macky Gee - Lighters Up.mp3"
-#beats = [67.662,71.795,74.558,77.322,80.038]
-
-song_path = "Geoxor - Euphoria.mp3"
-#beats = [37.356,39.492,41.674,43.880,45.993,48.176,52.611,54.817,56.953,59.136,61.295,63.501,65.614,67.843,70.072,72.209,74.438,76.597,78.803,80.963,83.145,85.374,87.487]
-beats = [8.986, 13.281, 17.693, 26.447, 35.131, 43.862, 52.593, 56.981, 61.323, 63.576, 67.871, 70.031, 74.466, 78.738, 83.173, 87.492,92]
-#17,35,52
-shots = [9.77,9.77,12.55,9.1,11.5,8.4,11,9.87,11.55,10.39,10.45,10.78,15,11.825,9.6,11.8,7.2]
-
-after_delay = 1
-
-input_delay = 0.35 #++ kdyz je hudba driv, -- kdyz je pozdeji
-delay = 0.36-input_delay #o kolik sekund je posunuty audio
-position = 0.36
-
+song_path = "audio/RUDE - Eternal Youth.mp3"
+data_path = "RUDE - Eternal Youth.mp3 - data.txt"
+clip_path = "clips/mc/"
 
 output_video_path = 'test.mp4'
+
+start = 3.81 #offset; must be higher than input_delay
+input_delay = 0.0 #++ kdyz je hudba driv, -- kdyz je pozdeji
+
+#_---------------------------------------------------
+
+
+delay = start-input_delay #o kolik sekund je posunuty audio
+position = start
+
+
+beats_in = open(data_path).readlines()
+beats = [float(i) for i in beats_in]
+
+after_delay = 0.2
+last_delay = 2
+
+fdin = 2
+fdout = 2
+
+
+paths_in = [f for f in listdir(clip_path) if isfile(join(clip_path, f))]
+number_of_clips = len(paths_in)
+
+print("Loading all clips...")
+
+for i in range(len(paths_in)):
+	paths.append(0)
+	shots.append(0)
+	for j in range(len(paths_in)):	
+		order = int(paths_in[j].partition("_")[0])
+		
+		if(int(order) == i+1):
+			paths[i] = clip_path + paths_in[j]
+			#print(len(str(order)))
+			shots[i] = paths_in[j][len(str(order))+1:]
+			shots[i] = int(shots[i].partition(".")[0])/1000
+print("Loaded clips:")
+for i in paths: print(i)
+print("Timestamps of clips:")
+for i in shots: print(i)
+
+print("Cutting clips...")
+for i in range(number_of_clips):
+	paths.append("clips/"+str(i+1)+".mp4")
+
+print("shots[0] = ",shots[0]+delay)
+print("beats[0] = ",beats[0])
+
+
+if shots[0]+delay < beats[0]:
+	print("Error: First shot (", shots[0]+delay ,") is earlier than first beat (",beats[0],")") 
+	print("Tip: Increase start offset") 
+	exit()
+
+
+
 
 clips = []
 
 
 
-for i in range(pocet_klipu):
+for i in range(number_of_clips):
 
-	delka = beats[i]+after_delay-position
-	zacatek = shots[i]+after_delay-delka
+	length_of_clip = beats[i]+after_delay-position
+	start = shots[i]+after_delay-length_of_clip
 
-	shot=zacatek+delka-after_delay
-	print(delka)
+	shot=start+length_of_clip-after_delay
+	print(length_of_clip)
 
-	clips.append(VideoFileClip(paths[i]).subclip(zacatek,zacatek+delka))
-	position+=delka
+	if i == number_of_clips-1:
+		#making last frame a bit longer
+		clips.append(VideoFileClip(paths[i]).subclip(start,start+length_of_clip+last_delay))
+	else:
+		clips.append(VideoFileClip(paths[i]).subclip(start,start+length_of_clip))
+	
+	position+=length_of_clip
+
+clips[0] = clips[0].fx(vfx.fadein, duration=fdin, initial_color=[0,0,0])
+clips[number_of_clips-1] = clips[number_of_clips-1].fx(vfx.fadeout, duration=fdout, final_color=[0,0,0])
 
 
-audioclip = AudioFileClip(song_path).subclip(delay,beats[pocet_klipu-1]+after_delay)
-
-
+audioclip = AudioFileClip(song_path).subclip(delay,beats[number_of_clips-1]+last_delay).audio_fadein(2)
 
 final_clip = concatenate_videoclips(clips).set_audio(audioclip)
+final_clip = final_clip.afx( afx.audio_fadein, 0)
+final_clip = final_clip.afx( afx.audio_fadeout, 2)
+
 
 final_clip.write_videofile(output_video_path, audio_codec='aac')
-#final_clip.preview()
