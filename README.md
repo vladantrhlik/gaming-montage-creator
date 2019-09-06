@@ -1,3 +1,4 @@
+sorry for my english ^^
 <h1>Version 1.0</h1>
 <p>You can find all files from first version in /v1/. <br>
 	Folder contains basic script for exporting montage and Processing code for recording beat timestamps for audio
