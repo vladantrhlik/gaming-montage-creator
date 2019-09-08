@@ -7,6 +7,7 @@ sorry for my english ^^
 
 <h1>Version 2.0</h1>
 <p>
+	MOntage generated with this version: https://www.youtube.com/watch?v=lauqgS_X7z0
 <h3>Updates:</h3>
 <ul>
 	<li>Video timestamp editor with GUI</li>
