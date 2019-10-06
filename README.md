@@ -1,9 +1,5 @@
 sorry for my english ^^
-<h1>Version 1.0</h1>
-<p>You can find all files from first version in /v1/. <br>
-	Folder contains basic script for exporting montage and Processing code for recording beat timestamps for audio<br>
-	Montage generated with this version: https://www.youtube.com/watch?v=qZ3AAXLH8C0
-</p>
+
 
 <h1>Version 2.0</h1>
 <p>
@@ -53,4 +49,10 @@ sorry for my english ^^
 	<br>scheme:<img src="img/video scheme.png" style='border:1px solid #000000'>
 </ul>
 
+</p>
+
+<h1>Version 1.0</h1>
+<p>You can find all files from first version in /v1/. <br>
+	Folder contains basic script for exporting montage and Processing code for recording beat timestamps for audio<br>
+	Montage generated with this version: https://www.youtube.com/watch?v=qZ3AAXLH8C0
 </p>
