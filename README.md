@@ -1,5 +1,16 @@
 sorry for my english ^^
 
+<h1>Version 3.0</h1>
+<p>
+	Updates:
+	<ul>
+		<li>Everything is in one script</li>
+		<li>Better audio timestamp generator with visualizer</li>
+		<li>Project saving/loading feature</li>
+		<li>Better GUI</li>
+	</ul>
+</p>
+
 
 <h1>Version 2.0</h1>
 <p>
