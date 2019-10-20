@@ -39,7 +39,10 @@ audioTimestamps = []
 audioDelayedT = []
 
 global deleting
-deleting = 0                    
+deleting = 0          
+
+global user_in
+user_in = True          
 
 
 global lastSelectedAT
@@ -216,6 +219,7 @@ class Window(QMainWindow):
             margin-right: 5px;
             font: bold;
             color: #e3c800;
+            width: 100px;
         }
 
         QTabBar::tab:selected{
@@ -476,6 +480,7 @@ class Window(QMainWindow):
         fileMenu.addAction(saveAction)
         fileMenu.addAction(exitAction)
 
+        
         wid = QWidget(self)
         self.setCentralWidget(wid)
 
@@ -601,6 +606,7 @@ class Window(QMainWindow):
         self.mediaPlayer.error.connect(self.handleError)
         self.clipList.currentItemChanged.connect(self.updateClipInfo)
         self.order.valueChanged.connect(self.setOrder)
+
 
     def saveProject(self):
         print("saving project")
@@ -1015,7 +1021,24 @@ class Window(QMainWindow):
         num = self.clipList.currentRow()
         clipOrder[num] = self.order.value()
 
+        global user_in
+
+        if (user_in):
+            self.clipList.insertItem(num,str(str(clipOrder[num])+".  "+ntpath.basename(clips[num])))
+            self.clipList.takeItem(num+1)
+
+            self.clipList.setCurrentRow(num)
+
+        
+        user_in = True
+        
+
+
     def updateClipInfo(self):
+
+        global user_in
+        user_in = False
+
         num = self.clipList.currentRow()
         self.timestamp.setValue(clipTimemstamps[num])
         self.order.setValue(clipOrder[num])
@@ -1061,11 +1084,11 @@ class Window(QMainWindow):
 
         if clipDirName != '':
             paths_in = [f for f in listdir(clipDirName) if isfile(join(clipDirName, f))]
-            for i in paths_in:
-                print(clipDirName+'/'+i)
-                clips.append(clipDirName+'/'+i)
+            for i in range(0,len(paths_in)):
+                print(clipDirName+'/'+paths_in[i])
+                clips.append(clipDirName+'/'+paths_in[i])
                 clipTimemstamps.append(0)
-                clipOrder.append(0)
+                clipOrder.append(i+1)
             self.updateClipList()
             self.enableAll()
             
@@ -1081,8 +1104,8 @@ class Window(QMainWindow):
 
     def updateClipList(self):
         self.clipList.clear()
-        for i in clips:
-            self.clipList.addItem(ntpath.basename(i))
+        for i in range(len(clips)):
+            self.clipList.addItem(str(str(clipOrder[i])+".  "+ntpath.basename(clips[i])))
 
     def openFile(self):
         fileName = filedialog.askopenfilename(filetypes=(("Video Files", ".mp4"),   ("All Files", "*.*")))
