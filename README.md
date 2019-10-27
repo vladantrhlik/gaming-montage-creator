@@ -1,4 +1,3 @@
-![Github Releases](https://img.shields.io/github/downloads/vladantrhlik/gaming-montage-creator/latest/total.svg?style=plastic)
 
 sorry for my english ^^
 
